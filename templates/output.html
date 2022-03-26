@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+
+{% endblock %}
+
+{% block body %}
+
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/">Back</a>
+</header>
+
+
+
+
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Overview</h1>
+    </div>
+
+
+
+        {% for city in data["cities"] %}
+        <main class="col-md-12 center">
+        <div class="row"><div class="col">
+            <div class="card mb-1 rounded-3 shadow-sm">
+                <div class="card-header"> {{ city }} </div>
+                <div class="card-body">
+                <div class="row ">
+
+                    <div class="col text-center">
+                        <div id = "flights">
+                            <p>Flight information</p>
+                            <ul class="list-group-flush text-left">
+                                    <li class="list-group-item">Departing flight {{  data["flights"]["depart"][city]["1"]["airline_name"] }} {{  data["flights"]["depart"][city]["1"]["price"] }}</li>
+                                    <li class="list-group-item">Returning flight {{  data["flights"]["return"][city]["1"]["airline_name"] }} {{  data["flights"]["return"][city]["1"]["price"] }}</li>
+                            </ul>
+
+                        </div>
+                    </div>
+
+
+                    <div class="col text-center">
+                        <div id = "hotels">
+                            <p>Hotel information</p>
+                            <ul class="list-group-flush text-left">
+                                    <li class="list-group-item">{{  data["hotels"][city][0]["name"] }} {{  data["hotels"][city][0]["price"] }}</li>
+                                    <li class="list-group-item">{{  data["hotels"][city][1]["name"] }} {{  data["hotels"][city][1]["price"] }}</li>
+                            </ul>
+                            <button onclick="test('hotel{{city}}', 'restaurant{{city}}')"
+                                    onmouseover="hover('on', 'hovHotel{{city}}')"
+                                    onmouseout="hover('off', 'hovHotel{{city}}')">More hotels</button>
+                            <span id="hovHotel{{city}}" style="color:white; display:block">Display more information on up to 5 hotels</span>
+                        </div>
+                    </div>
+
+                    <div class="col text-center">
+                        <div id = "restaurant">
+                            <p>Restaurant information</p>
+                            <ul class="list-group-flush text-left">
+                                <li class="list-group-item">{{  data["restaurant"][city][0]["name"] }} {{ data["restaurant"][city][0]["price"] }}</li>
+                                <li class="list-group-item">{{  data["restaurant"][city][1]["name"] }} {{ data["restaurant"][city][1]["price"] }}</li>
+                            </ul>
+                            <button onclick="test('restaurant{{city}}', 'hotel{{city}}')"
+                                    onmouseover="hover('on', 'hovRestaurant{{city}}')"
+                                    onmouseout="hover('off', 'hovRestaurant{{city}}')">More restaurants</button>
+                            <span id="hovRestaurant{{city}}" style="color:white; display:block">Display more information on up to 5 restaurants</span>
+                        </div>
+                    </div>
+
+                    <div class="col text-center">
+                        <div id = "stats">
+                            <p>Statistics</p>
+                            <ul class="list-group-flush text-left">
+                                <li class="list-group-item">{{ city }} is a {{  data["match_stats"][city] }}% match</li>
+                                <li class="list-group-item">You send {{ data["history_stats"][city] }}% of travelers to {{ city }}</li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+                <div id="hotel{{city}}" style="display: none;">
+                    <div class="card card-body">
+                      More hotel information
+                        <ul class="list-group-flush text-left">
+                            {% for hotel in data["hotels"][city] %}
+                                    <li class="list-group-item">{{  hotel["name"] }} {{  hotel["price"] }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="restaurant{{city}}" style="display: none;">
+                    <div class="card card-body">
+                      More restaurant information
+                            {% for rest in data["restaurant"][city] %}
+                                    <li class="list-group-item">{{  rest["name"] }} {{  rest["price"] }}</li>
+                            {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+        </div></div>
+    </main>
+
+{% endfor %}
+</div>
+
+<script type="text/javascript">
+    function test(divId, divClose1){
+        var content = document.getElementById(divId);
+        document.getElementById(divClose1).style.display = "none";
+
+            if (content.style.display === "block") {
+            content.style.display = "none";
+            } else {
+            content.style.display = "block";
+            }
+        }
+
+    function hover(position, divId) {
+                        var hov = document.getElementById(divId);
+                        if (position=="on") {
+                        hov.style.color = "black";
+                        } else if (position=="off") {
+                        hov.style.color = "white";
+                        }
+                    }
+</script>
+
+{% endblock %}
+
