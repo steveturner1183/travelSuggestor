@@ -17,9 +17,9 @@ When the user clicks submit, the following output sceen will be displayed:
 
 ## **Requirements**
 
-Python 3.7
-amadeus 5.1.0
-Flask 2.0.2
-python-Levenshtein 0.12.2
-requests 2.26.0
-urllib3 1.26.7
+Python 3.7  
+amadeus 5.1.0  
+Flask 2.0.2  
+python-Levenshtein 0.12.2  
+requests 2.26.0  
+urllib3 1.26.7  
